@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="pomodoro">
+        <h2>Pomodoro Timer</h2>
+        <p id="timer">25:00</p>
+        <button onclick="startTimer()">Start</button>
+        <button onclick="pauseTimer()">Pause</button>
+        <button onclick="resetTimer()">Reset</button>
+    </div>
+    <div class="todo">
+        <h2>Todo List</h2>
+        <form method="POST" action="{{ url_for('add_todo') }}">
+            <input type="text" name="content" placeholder="Add new todo" required>
+            <button type="submit">Add</button>
+        </form>
+        <ul>
+            {% for todo in todos %}
+            <li>
+                <form method="POST" action="{{ url_for('update_todo', todo_id=todo.id) }}">
+                    <input type="text" name="content" value="{{ todo.content }}" required>
+                    <button type="submit">Update</button>
+                </form>
+                <form method="POST" action="{{ url_for('delete_todo', todo_id=todo.id) }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
