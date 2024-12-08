@@ -79,9 +79,10 @@ def delete_todo(todo_id):
         db.session.commit()
     return redirect(url_for('dashboard'))
 
-@app.route('/logout')
+@app.route('/logout', methods=['POST'])
 def logout():
     session.pop('user_id', None)
+    flash("You have been logged out.")
     return redirect(url_for('index'))
 
 # App Initialization
